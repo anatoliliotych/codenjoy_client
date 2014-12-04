@@ -1,0 +1,17 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    codenjoy_connection (0.0.2)
+      eventmachine
+      faye-websocket
+    eventmachine (1.0.3)
+    faye-websocket (0.8.0)
+      eventmachine (>= 0.12.0)
+      websocket-driver (>= 0.4.0)
+    websocket-driver (0.4.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  codenjoy_connection
