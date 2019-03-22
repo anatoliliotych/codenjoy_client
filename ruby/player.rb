@@ -10,5 +10,6 @@ class Player
 
   # This method should return string like left=0, right=0, rotate=0, drop'
   def make_step
+    'left'
   end
 end

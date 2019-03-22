@@ -1,13 +1,22 @@
 # encoding: utf-8
 
-require 'codenjoy_connection'
+require 'faye/websocket'
+require 'eventmachine'
 require File.expand_path('../player', __FILE__)
 
-host_ip = 'codenjoy_server' # ip of host with running tetris-server
+host_ip = '127.0.0.1' # ip of host with running tetris-server
 port = '8080' # this port is used for communication between your client and tetris-server
-user = 'anatoliliotych' # your username, use the same for registration on tetris-server
+user_id = 'bn8vtogio4cp05s5o5ql' # from url after registration
+code = '789585278044203241' # from url after registration
 
-opts = {:username => user, :host=> host_ip, :port => port, :game_url => 'tetris-contest/ws?'}
+url = "ws://#{host_ip}:#{port}/codenjoy-contest/ws?user=#{user_id}&code=#{code}"
 
 player = Player.new
-CodenjoyConnection.play(player,opts)
+EM.run do
+  ws = Faye::WebSocket::Client.new(url)
+  ws.on :message do |event|
+    p [:message, event.data]
+    player.process_data(event.data)
+    ws.send(player.make_step)
+  end
+end
