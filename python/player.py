@@ -5,4 +5,4 @@ class Player:
     def make_step(self):
         # prepare response here
         # pass
-        return "right=1"
+        return "left"
